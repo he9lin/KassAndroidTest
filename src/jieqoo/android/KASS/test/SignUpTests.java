@@ -5,6 +5,7 @@ package jieqoo.android.KASS.test;
 
 import jieqoo.android.KASS.SignUp;
 import jieqoo.android.model.Account;
+
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.widget.Button;
@@ -32,6 +33,8 @@ public class SignUpTests extends
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		setActivityInitialTouchMode(false);
+		
 		mActivity = getActivity();
 		
 		nameInput = mActivity.getNameInput();
