@@ -1,12 +1,12 @@
 /**
  * 
  */
-package jieqoo.android.KASS.test;
+package jieqoo.android.KASS.test.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import jieqoo.android.model.Account;
+import jieqoo.android.models.Account;
 import junit.framework.TestCase;
 
 /**
