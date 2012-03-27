@@ -2,7 +2,7 @@ package jieqoo.android.KASS.test;
 
 import java.text.ParseException;
 
-import jieqoo.android.util.TimeParser;
+import jieqoo.android.KASS.util.TimeParser;
 import junit.framework.TestCase;
 import android.util.Log;
 

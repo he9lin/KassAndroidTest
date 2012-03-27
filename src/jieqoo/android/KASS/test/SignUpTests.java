@@ -4,7 +4,7 @@
 package jieqoo.android.KASS.test;
 
 import jieqoo.android.KASS.SignUp;
-import jieqoo.android.models.Account;
+import jieqoo.android.KASS.models.Account;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
