@@ -1,9 +1,9 @@
-package jieqoo.android.KASS.test.models;
+package jieqoo.android.KASS.models.test;
 
 import java.text.ParseException;
 
+import jieqoo.android.KASS.models.Listings;
 import jieqoo.android.KASS.test.Fixtures;
-import jieqoo.android.models.Listings;
 import junit.framework.TestCase;
 
 import org.json.JSONException;

@@ -1,12 +1,12 @@
-package jieqoo.android.KASS.test.tasks;
+package jieqoo.android.KASS.tasks.test;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import jieqoo.android.models.RESTListener;
-import jieqoo.android.models.RESTResponse;
-import jieqoo.android.tasks.FetchRESTResponseTask;
-import jieqoo.android.util.Configuration;
+import jieqoo.android.KASS.models.RESTListener;
+import jieqoo.android.KASS.models.RESTResponse;
+import jieqoo.android.KASS.tasks.FetchRESTResponseTask;
+import jieqoo.android.KASS.util.Configuration;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
 

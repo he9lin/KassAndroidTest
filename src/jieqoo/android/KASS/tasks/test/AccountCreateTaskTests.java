@@ -1,8 +1,8 @@
-package jieqoo.android.KASS.test.tasks;
+package jieqoo.android.KASS.tasks.test;
 
-import jieqoo.android.models.Account;
-import jieqoo.android.models.RESTListener;
-import jieqoo.android.tasks.AccountCreateTask;
+import jieqoo.android.KASS.models.Account;
+import jieqoo.android.KASS.models.RESTListener;
+import jieqoo.android.KASS.tasks.AccountCreateTask;
 import junit.framework.TestCase;
 
 import org.json.JSONException;
