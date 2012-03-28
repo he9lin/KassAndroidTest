@@ -2,17 +2,17 @@ package jieqoo.android.KASS.mocks;
 
 import jieqoo.android.KASS.models.RESTListener;
 import jieqoo.android.KASS.models.RESTResponse;
-import jieqoo.android.KASS.tasks.FetchRESTResponseTask;
+import jieqoo.android.KASS.tasks.HttpJSONGetTask;
 
-public class MockRESTRequestTask extends FetchRESTResponseTask {
+public class MockHttpJSONGetTask extends HttpJSONGetTask {
 	private int statusCode;
 	private String responseBody;
 	
 	// TODO: Add status code
-	public MockRESTRequestTask(int statusCode, String responseBody, RESTListener listener) {
+	public MockHttpJSONGetTask(int statusCode, String responseBody, RESTListener listener) {
+		super("", "", listener);
 		this.statusCode = statusCode;
 		this.responseBody = responseBody;
-		this.listener = listener;
 	}
 
 	@Override

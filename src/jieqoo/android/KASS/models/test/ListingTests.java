@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import jieqoo.android.KASS.mocks.MockRESTRequestTask;
+import jieqoo.android.KASS.mocks.MockHttpJSONGetTask;
 import jieqoo.android.KASS.models.Listing;
 import jieqoo.android.KASS.models.RESTListener;
 import jieqoo.android.KASS.test.Fixtures;
@@ -31,6 +31,11 @@ public class ListingTests extends InstrumentationTestCase {
 		assertContainsRegex("v1/listings/123.json", listing.getUrl());
 	}
 	
+	public final void testSaveUrl() {
+		Listing listing = new Listing();
+		assertContainsRegex("v1/listings.json", listing.getUrl());
+	}
+	
 	public final void testFetchListing() throws Throwable {
 		// create  a signal to let us know when our task is done.
 	    final CountDownLatch signal = new CountDownLatch(1);
@@ -42,7 +47,7 @@ public class ListingTests extends InstrumentationTestCase {
 	        	Listing listing = new Listing() {
 	    			@Override
 	    			public void fetch(RESTListener listener) {
-	    				new MockRESTRequestTask(200, Fixtures.LISTING, listener).execute();
+	    				new MockHttpJSONGetTask(200, Fixtures.LISTING, listener).execute();
 	    			}
 	    		};
 		
