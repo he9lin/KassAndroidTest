@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import jieqoo.android.KASS.models.Account;
+import jieqoo.android.KASS.models.RESTListener;
+import jieqoo.android.KASS.test.Factory;
 import junit.framework.TestCase;
 
 /**
@@ -15,6 +17,7 @@ import junit.framework.TestCase;
  */
 public class AccountTests extends TestCase {
 	private Account account;
+	private boolean called;
 
 	/**
 	 * 
@@ -25,6 +28,7 @@ public class AccountTests extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		account = Account.getInstance();
+		called = false;
 	}
 
 	/*
@@ -65,12 +69,49 @@ public class AccountTests extends TestCase {
 	public final void testAuthenticated() {
 		JSONObject params = new JSONObject();
 		try {
-			params.put("id", "123	");
+			params.put("id", "123");
 			params.put("username", "kass");
 		} catch(JSONException e) {
 			
 		}
 		account.set(params);
 		assertTrue(account.isAuthenticated());
+	}
+	
+	public final void testSignin() throws JSONException {
+		JSONObject userJSON = Factory.createUser();
+		String email = userJSON.getString("email");
+		String password = userJSON.getString("password");
+		
+		account.signout(Factory.dummyRestListener());
+		
+		account.signin(email, password, new RESTListener() {
+			@Override
+			public void onSuccess(Object response) {
+				called = true;
+			}
+
+			@Override
+			public void onError(Object response) {
+			}
+		});
+		assertTrue(Factory.acquireAuth());
+		assertTrue(called);
+	}
+	
+	public final void testSignout() throws JSONException {
+		Factory.createUser();
+		account.signout(new RESTListener() {
+			@Override
+			public void onSuccess(Object response) {
+				called = true;
+			}
+
+			@Override
+			public void onError(Object response) {
+			}
+		});
+		assertFalse(Factory.acquireAuth());
+		assertTrue(called);
 	}
 }

@@ -21,7 +21,7 @@ public class OfferTests extends TestCase {
 	}
 	
 	public final void testDefaultPrice() {
-		assertEquals(Offer.INVALID_OFFER_PRICE, offer.getPrice());
+		assertEquals(Offer.INVALID_PRICE, offer.getPrice());
 		assertFalse(offer.isPriceSet());
 	}
 	
@@ -54,7 +54,7 @@ public class OfferTests extends TestCase {
 		offer.setPrice(price);
 		offer.setMessage(message);
 		offer.clear();
-		assertEquals(Offer.INVALID_OFFER_PRICE, offer.getPrice());
+		assertEquals(Offer.INVALID_PRICE, offer.getPrice());
 		assertEquals(null, offer.getMessage());
 		assertEquals(null, offer.getId());
 	}
