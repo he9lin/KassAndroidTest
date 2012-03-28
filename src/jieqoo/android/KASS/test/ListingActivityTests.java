@@ -58,7 +58,7 @@ public class ListingActivityTests extends ActivityInstrumentationTestCase2<Listi
 	}
 	
 	public final void testSetListingId() {
-		assertEquals(Fixtures.LISTING_ID, mActivity.getListingId());
+		assertEquals(Fixtures.LISTING_ID, mActivity.getListing().getId());
 	}
 
 	@UiThreadTest
