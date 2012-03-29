@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 import jieqoo.android.KASS.mocks.MockHttpJSONGetTask;
 import jieqoo.android.KASS.models.Listing;
 import jieqoo.android.KASS.models.RESTListener;
-import jieqoo.android.KASS.tasks.HttpJSONPostTask;
 import jieqoo.android.KASS.test.Factory;
 import jieqoo.android.KASS.test.Fixtures;
 
@@ -63,7 +62,7 @@ public class ListingTests extends InstrumentationTestCase {
 	    		listing.setTimeWords("2d");
 	    		listing.setPrice(37.37);
 	    		try {
-					listing.setLatlng(new JSONArray("[" + Fixtures.LNG_LAT.HZ + "]"));
+					listing.setLatlng(new JSONArray("[" + Fixtures.LAT_LNG.HZ + "]"));
 				} catch (JSONException e) {
 					Log.d(TAG, "latlng not turned to json!");
 					e.printStackTrace();

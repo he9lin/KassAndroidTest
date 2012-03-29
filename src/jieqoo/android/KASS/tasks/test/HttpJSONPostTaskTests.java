@@ -47,7 +47,7 @@ public class HttpJSONPostTaskTests extends InstrumentationTestCase {
 					params.put("title", "Bartender" + System.currentTimeMillis());
 		    		params.put("price", 37.37);
 		    		params.put("time", "2d");
-		    		params.put("latlng", Fixtures.LNG_LAT.HZ);
+		    		params.put("latlng", Fixtures.LAT_LNG.HZ);
 				} catch (JSONException e) {
 					Log.d(TAG, "error building params");
 					e.printStackTrace();

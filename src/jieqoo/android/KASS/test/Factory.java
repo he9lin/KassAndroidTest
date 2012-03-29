@@ -3,6 +3,7 @@ package jieqoo.android.KASS.test;
 import java.io.IOException;
 
 import jieqoo.android.KASS.models.Account;
+import jieqoo.android.KASS.models.Listing;
 import jieqoo.android.KASS.models.RESTListener;
 import jieqoo.android.KASS.models.RESTResponse;
 import jieqoo.android.KASS.tasks.AccountCreateTask;
@@ -10,6 +11,8 @@ import jieqoo.android.KASS.util.Configuration;
 import jieqoo.android.KASS.util.REST;
 
 import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,6 +37,35 @@ public class Factory {
 	
 	public static String generateEmail() {
 		return "user" + System.currentTimeMillis() + "@example.com";
+	}
+	
+	// Needs user to be authenticated first!
+	public static JSONObject createListing() {
+		// Build params. TODO: Move to a factory.
+		final JSONObject params = new JSONObject();
+		JSONObject listingJSON = new JSONObject();
+		
+		try {
+			params.put("title", "Bartender" + System.currentTimeMillis());
+			params.put("latlng", new JSONArray("[" + Fixtures.LAT_LNG.HZ + "]"));
+			params.put("price", 3000);
+			params.put("time", "2d");
+		} catch (JSONException e) {
+			Log.d(TAG, "Error building JSONObject");
+		}
+		
+		String url = new Listing().getUrl();
+		try {
+			listingJSON = (JSONObject)REST.postJSON(url, params.toString()).getResponseBody();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return listingJSON;
 	}
 	
 	public static JSONObject createUser() {

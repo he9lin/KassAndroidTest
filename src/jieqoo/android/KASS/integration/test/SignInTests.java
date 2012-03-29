@@ -1,4 +1,4 @@
-package jieqoo.android.KASS.test;
+package jieqoo.android.KASS.integration.test;
 
 import jieqoo.android.KASS.SignIn;
 import jieqoo.android.KASS.models.Account;
@@ -7,16 +7,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.UiThreadTest;
-import android.widget.Button;
-import android.widget.EditText;
+
+import com.jayway.android.robotium.solo.Solo;
+
+import static jieqoo.android.KASS.test.Factory.*;
 
 public class SignInTests extends ActivityInstrumentationTestCase2<SignIn> {
 
-	private SignIn mActivity;
-	private EditText emailInput;
-	private EditText passwordInput;
-	private Button signinButton;
+	private Solo solo;
 
 	public SignInTests(String name) {
 		super(SignIn.class);
@@ -29,30 +27,29 @@ public class SignInTests extends ActivityInstrumentationTestCase2<SignIn> {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		setActivityInitialTouchMode(false);
-		
-		mActivity = getActivity();
-		
-		emailInput = mActivity.getEmailInput();
-		passwordInput = mActivity.getPasswordInput();
-		signinButton = mActivity.getSigninButton();
+		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
+		try {
+			solo.finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
-	@UiThreadTest
 	public final void testSignin() throws JSONException {
-		JSONObject userJSON = Factory.createUser();
-		Factory.signoutUser();
-		
+		JSONObject userJSON = createUser();
+		signoutUser();
+
 		String email = userJSON.getString("email");
 		String password = userJSON.getString("password");
 		
-		emailInput.setText(email);
-		passwordInput.setText(password);
-		signinButton.performClick();
+		solo.enterText(0, email);
+		solo.enterText(1, password);
+		solo.clickOnButton("登录");
+		solo.waitForText("我要买");
 		
 		assertTrue(Account.getInstance().isAuthenticated());
 	}

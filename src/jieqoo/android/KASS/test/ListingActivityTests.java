@@ -47,6 +47,7 @@ public class ListingActivityTests extends ActivityInstrumentationTestCase2<Listi
 		setActivityIntent(listingIntent);
 		
 		mActivity = getActivity();
+		
 		titleText = mActivity.getTitleText();
 		descriptionText = mActivity.getDescriptionText();
 		priceText = mActivity.getPriceText();
