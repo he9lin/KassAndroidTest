@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import jieqoo.android.KASS.models.Account;
 import jieqoo.android.KASS.models.Listing;
+import jieqoo.android.KASS.models.Offer;
 import jieqoo.android.KASS.models.RESTListener;
 import jieqoo.android.KASS.models.RESTResponse;
 import jieqoo.android.KASS.tasks.AccountCreateTask;
@@ -39,9 +40,33 @@ public class Factory {
 		return "user" + System.currentTimeMillis() + "@example.com";
 	}
 	
+	public static JSONObject createOffer(String listingId) {
+		final JSONObject params = new JSONObject();
+		JSONObject offerJSON = new JSONObject();
+		
+		try {
+			params.put("message", "I am a Bartender");
+			params.put("listing_id", listingId);
+		} catch (JSONException e) {
+			Log.d(TAG, "createOffer: Error building JSONObject");
+		}
+		
+		String url = new Offer().getUrl();
+		try {
+			offerJSON = (JSONObject)REST.postJSON(url, params.toString()).getResponseBody();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return offerJSON;		
+	}
+	
 	// Needs user to be authenticated first!
 	public static JSONObject createListing() {
-		// Build params. TODO: Move to a factory.
 		final JSONObject params = new JSONObject();
 		JSONObject listingJSON = new JSONObject();
 		
@@ -82,7 +107,7 @@ public class Factory {
 
 		new AccountCreateTask(params.toString(),
 			new RESTListener() {
-				public void onSuccess(Object response) { }
+				public void onSuccess(Object response) { Account.getInstance().set((JSONObject)response); }
 				public void onError(Object response) { }
 			}
 		).run();

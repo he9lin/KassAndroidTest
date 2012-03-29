@@ -85,44 +85,47 @@ public class OfferTests extends InstrumentationTestCase {
 	}
 	
 	public final void testSaveNewRecord() throws JSONException, Throwable {
-		 createUser();
+		createUser();
 
-		 JSONObject listingJSON = createListing();
-		 final String listingId = listingJSON.getString("id");
-		 
-		 // Now we need a different user to make the offer.
-		 signoutUser();
-		 createUser();
-		 
-		// create  a signal to let us know when our task is done.
-		    final CountDownLatch signal = new CountDownLatch(1);
+		JSONObject listingJSON = createListing();
+		final String listingId = listingJSON.getString("id");
 
-			// Execute the Async task on the UI thread! THIS IS KEY!
-		    runTestOnUiThread(new Runnable() {
-		        @Override
-		        public void run() {
-		    		Offer offer = new Offer();
-		   		 	offer.setListingId(listingId);
-		   		 	offer.setMessage("This is an offer!");
-		    		offer.save(new RESTListener() {
-		    			public void onSuccess(Object response) { 
-		    				Log.d(TAG, "RESTListener: success response: " + response);
-		    				called = true;
-		    				signal.countDown();
-		    			}
-		    			public void onError(Object response) {
-		    				Log.d(TAG, "RESTListener: error response: " + response);
-		    				signal.countDown();
-		    			}			
-		    		});             
-		        }
-		    });       
+		// Now we need a different user to make the offer.
+		signoutUser();
+		createUser();
 
-		    /* The testing thread will wait here until the UI thread releases it
-		     * above with the countDown() or 10 seconds passes and it times out.
-		     */        
-		    signal.await(10, TimeUnit.SECONDS);
-			assertTrue(called);
+		// create a signal to let us know when our task is done.
+		final CountDownLatch signal = new CountDownLatch(1);
+
+		// Execute the Async task on the UI thread! THIS IS KEY!
+		runTestOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Offer offer = new Offer();
+				offer.setListingId(listingId);
+				offer.setMessage("This is an offer!");
+				offer.save(new RESTListener() {
+					public void onSuccess(Object response) {
+						Log.d(TAG, "RESTListener: success response: "
+								+ response);
+						called = true;
+						signal.countDown();
+					}
+
+					public void onError(Object response) {
+						Log.d(TAG, "RESTListener: error response: " + response);
+						signal.countDown();
+					}
+				});
+			}
+		});
+
+		/*
+		 * The testing thread will wait here until the UI thread releases it
+		 * above with the countDown() or 10 seconds passes and it times out.
+		 */
+		signal.await(10, TimeUnit.SECONDS);
+		assertTrue(called);
 	}
 	
 	public final void testSaveExistingRecord() {
