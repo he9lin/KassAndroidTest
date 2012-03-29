@@ -25,7 +25,9 @@ public class ListingTests extends InstrumentationTestCase {
 
 	public final void testCreateFromJSONObject() throws JSONException, ParseException {
 		JSONObject object = new JSONObject(Fixtures.LISTING);
-		Listing listing = new Listing(object);
+		
+		Listing listing = new Listing();
+		listing.set(object);
 		assertEquals(listing.getId(), "4f6053a8cf60210e50000002");
 		assertEquals(3000.0, listing.getPrice());
 	}

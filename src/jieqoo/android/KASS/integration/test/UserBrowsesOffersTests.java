@@ -20,9 +20,10 @@ public class UserBrowsesOffersTests extends IntegrationBaseTests {
 		JSONObject listing = createListing();
 		signoutUser();
 		createUser();
-		createOffer(listing.getString("id"));
+		JSONObject offer = createOffer(listing.getString("id"));
 		solo.clickOnButton("我的活动");
 		solo.clickOnText("我要卖");
 		assertTrue(solo.searchText(listing.getString("title")));
+		assertTrue(solo.searchText(offer.getString("price")));
 	}
 }

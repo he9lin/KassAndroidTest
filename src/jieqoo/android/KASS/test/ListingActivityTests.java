@@ -64,7 +64,9 @@ public class ListingActivityTests extends ActivityInstrumentationTestCase2<Listi
 
 	@UiThreadTest
 	public final void testFillInListingContent() throws JSONException, ParseException {
-		mActivity.fillInListingContent(new Listing(new JSONObject(Fixtures.LISTING)));
+		Listing listing = new Listing();
+		listing.set(new JSONObject(Fixtures.LISTING));
+		mActivity.fillInListingContent(listing);
 		assertEquals("Bartender", titleText.getText()); 
 		assertEquals("A hansome one", descriptionText.getText()); 
 		assertContainsRegex("3000", priceText.getText().toString());

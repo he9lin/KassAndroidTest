@@ -34,6 +34,20 @@ public class OfferTests extends InstrumentationTestCase {
 		super.tearDown();
 	}
 	
+	public final void testSetWithJSONObject() throws JSONException, ParseException {
+		JSONObject rawJSON = new JSONObject(Fixtures.OFFER);
+		rawJSON = rawJSON.getJSONObject("offer");
+		offer = new Offer(true);
+		offer.set(rawJSON);
+		assertEquals(3000.0, offer.getPrice());
+	}
+	
+	public final void testCreate() throws JSONException, ParseException {
+		offer.set(new JSONObject(Fixtures.OFFER));
+		assertEquals("4f7430f2cf60210f10000033", offer.getId());
+		assertEquals(3000.0, offer.getPrice());
+	}
+	
 	public final void testDefaultPrice() {
 		assertEquals(Offer.INVALID_PRICE, offer.getPrice());
 		assertFalse(offer.isPriceSet());
@@ -77,11 +91,6 @@ public class OfferTests extends InstrumentationTestCase {
 		assertTrue(offer.isNew());
 		offer.setId("123");
 		assertFalse(offer.isNew());
-	}
-	
-	public final void testSet() throws JSONException, ParseException {
-		offer.set(new JSONObject(Fixtures.OFFER));
-		assertEquals("4f7430f2cf60210f10000033", offer.getId());
 	}
 	
 	public final void testSaveNewRecord() throws JSONException, Throwable {

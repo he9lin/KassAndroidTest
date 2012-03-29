@@ -45,7 +45,7 @@ public class Factory {
 		JSONObject offerJSON = new JSONObject();
 		
 		try {
-			params.put("message", "I am a Bartender");
+			params.put("price", 37.37);
 			params.put("listing_id", listingId);
 		} catch (JSONException e) {
 			Log.d(TAG, "createOffer: Error building JSONObject");
@@ -62,7 +62,13 @@ public class Factory {
 			e.printStackTrace();
 		}
 		
-		return offerJSON;		
+		try {
+			return offerJSON.getJSONObject("offer");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}		
+		
+		return offerJSON;
 	}
 	
 	// Needs user to be authenticated first!
