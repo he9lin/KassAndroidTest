@@ -28,7 +28,9 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		JSONObject listing = createListing();
 		signoutUser();
 		createUser();
-		solo.clickOnButton("浏览");
+		
+		// click on browse
+		solo.clickOnScreen(250, 730);
 		solo.waitForActivity("Browse");
 		solo.clickOnText(listing.getString("title"));
 		solo.clickOnButton("我想出价");

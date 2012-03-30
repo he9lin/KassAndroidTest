@@ -46,6 +46,7 @@ public class Factory {
 		
 		try {
 			params.put("price", 37.37);
+			params.put("message", "This is an offer");
 			params.put("listing_id", listingId);
 		} catch (JSONException e) {
 			Log.d(TAG, "createOffer: Error building JSONObject");
@@ -99,8 +100,25 @@ public class Factory {
 		return listingJSON;
 	}
 	
+	public static JSONObject sigininUser(String email, String password) {
+		final JSONObject params = new JSONObject();
+		try {
+			params.put("email", email);
+			params.put("password", password);
+		} catch (JSONException e) {
+			Log.d(TAG, "Error building JSONObject");
+		}
+		try {
+			REST.postJSON(Configuration.PREFIX + Configuration.HOST + "/v1/auth", params.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return params;
+	}
+	
 	public static JSONObject createUser() {
-		// Build params. TODO: Move to a factory.
 		final JSONObject params = new JSONObject();
 		try {
 			params.put("name", generateName());

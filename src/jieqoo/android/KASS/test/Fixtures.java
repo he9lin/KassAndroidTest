@@ -11,4 +11,9 @@ public class Fixtures {
 	public class LAT_LNG {
 		public static final String HZ = "30.274089,120.155069";
 	}
+	
+	public static final int MENU_Y = 730;
+	public static final int BROWSE_X = 250;
+	public static final int ACTIVITY_X = 50;
+	public static final int ACCOUNT_X = 400;
 }

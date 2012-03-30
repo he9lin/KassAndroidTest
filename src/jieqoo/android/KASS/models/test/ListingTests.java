@@ -37,6 +37,12 @@ public class ListingTests extends InstrumentationTestCase {
 		called = false;
 	}
 	
+	public final void testCreateOffersCollection() throws JSONException, ParseException {
+		Listing listing = new Listing();
+		listing.set(new JSONObject(Fixtures.LISTING), true);
+		assertEquals(2, listing.getOffers().length());
+	}
+	
 	public final void testUrl() {
 		Listing listing = new Listing("123");
 		assertContainsRegex("v1/listings/123.json", listing.getUrl());
