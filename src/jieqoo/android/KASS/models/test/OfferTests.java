@@ -42,6 +42,13 @@ public class OfferTests extends InstrumentationTestCase {
 		assertEquals(3000.0, offer.getPrice());
 	}
 	
+	public final void testSetWithMessage() throws JSONException, ParseException {
+		JSONObject rawJSON = new JSONObject(Fixtures.OFFER_WITH_MESSAGE);
+		offer = new Offer();
+		offer.set(rawJSON);
+		assertEquals(1, offer.getMessages().length());
+	}
+	
 	public final void testCreate() throws JSONException, ParseException {
 		offer.set(new JSONObject(Fixtures.OFFER));
 		assertEquals("4f7430f2cf60210f10000033", offer.getId());

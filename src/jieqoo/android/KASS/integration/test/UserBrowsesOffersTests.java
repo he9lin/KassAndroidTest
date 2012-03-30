@@ -1,6 +1,9 @@
 package jieqoo.android.KASS.integration.test;
 
-import static jieqoo.android.KASS.test.Factory.*;
+import static jieqoo.android.KASS.test.Factory.createListing;
+import static jieqoo.android.KASS.test.Factory.createOffer;
+import static jieqoo.android.KASS.test.Factory.createUser;
+import static jieqoo.android.KASS.test.Factory.signoutUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +25,8 @@ public class UserBrowsesOffersTests extends IntegrationBaseTests {
 		createUser();
 		JSONObject offer = createOffer(listing.getString("id"));
 		solo.clickOnButton("我的活动");
-		solo.clickOnText("我要卖");
+		// Click on sellings
+		solo.clickOnScreen(300, 50);
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText(offer.getString("price")));
 	}
