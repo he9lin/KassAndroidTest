@@ -72,15 +72,14 @@ public class Factory {
 		return offerJSON;
 	}
 	
-	// Needs user to be authenticated first!
-	public static JSONObject createListing() {
+	public static JSONObject createListing(double price) {
 		final JSONObject params = new JSONObject();
 		JSONObject listingJSON = new JSONObject();
 		
 		try {
 			params.put("title", "Bartender" + System.currentTimeMillis());
 			params.put("latlng", new JSONArray("[" + Fixtures.LAT_LNG.HZ + "]"));
-			params.put("price", 3000);
+			params.put("price", price);
 			params.put("time", "2d");
 		} catch (JSONException e) {
 			Log.d(TAG, "Error building JSONObject");
@@ -98,6 +97,11 @@ public class Factory {
 		}
 		
 		return listingJSON;
+	}
+	
+	// Needs user to be authenticated first!
+	public static JSONObject createListing() {
+		return createListing(3000);
 	}
 	
 	public static JSONObject sigininUser(String email, String password) {
