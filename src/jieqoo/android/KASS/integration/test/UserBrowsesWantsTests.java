@@ -37,7 +37,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		createOffer(listing.getString("id"));
 		
 		signoutUser();
-		sigininUser(user.getString("email"), user.getString("password"));
+		signinUser(user.getString("email"), user.getString("password"));
 		
 		solo.clickOnScreen(250, 730); // browse
 		solo.clickOnScreen(80, 730); // my activity
@@ -55,7 +55,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		JSONObject offer = createOffer(listing.getString("id"));
 		
 		signoutUser();
-		sigininUser(user.getString("email"), user.getString("password"));
+		signinUser(user.getString("email"), user.getString("password"));
 		
 		solo.clickOnScreen(250, 730); // browse
 		solo.clickOnScreen(80, 730); // my activity

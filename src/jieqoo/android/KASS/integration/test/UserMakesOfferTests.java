@@ -3,7 +3,7 @@ package jieqoo.android.KASS.integration.test;
 import static jieqoo.android.KASS.test.Factory.createListing;
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
-import jieqoo.android.KASS.MyOfferIdleActivity;
+import jieqoo.android.KASS.ProvideActivity;
 import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 import org.json.JSONException;
@@ -41,7 +41,7 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		Activity lastActivity = am.getLastActivity();
 		Log.d("UserMakesOfferActivity", lastActivity.toString());
 		((FinishingTouchListener)lastActivity).onFinishingTouch();
-		solo.assertCurrentActivity("Should go to my offer page", MyOfferIdleActivity.class);
+		solo.assertCurrentActivity("Should go to my offer page", ProvideActivity.class);
 		assertTrue(solo.searchText(listing.getString("title")));
 	}
 }

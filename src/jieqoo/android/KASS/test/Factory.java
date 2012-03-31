@@ -104,7 +104,7 @@ public class Factory {
 		return createListing(3000);
 	}
 	
-	public static JSONObject sigininUser(String email, String password) {
+	public static JSONObject signinUser(String email, String password) {
 		final JSONObject params = new JSONObject();
 		try {
 			params.put("email", email);
@@ -113,7 +113,8 @@ public class Factory {
 			Log.d(TAG, "Error building JSONObject");
 		}
 		try {
-			REST.postJSON(Configuration.PREFIX + Configuration.HOST + "/v1/auth", params.toString());
+			RESTResponse response = REST.postJSON(Configuration.PREFIX + Configuration.HOST + "/v1/auth", params.toString());
+			Account.getInstance().set((JSONObject)response.getResponseBody()); // Setting the account!
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
