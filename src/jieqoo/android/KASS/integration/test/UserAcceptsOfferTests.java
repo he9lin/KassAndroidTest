@@ -2,6 +2,9 @@ package jieqoo.android.KASS.integration.test;
 
 import static jieqoo.android.KASS.test.Factory.*;
 import jieqoo.android.KASS.OfferActivity;
+import jieqoo.android.KASS.test.Factory;
+import jieqoo.android.KASS.test.Fixtures;
+import jieqoo.android.KASS.util.Configuration;
 import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 import org.json.JSONException;
@@ -46,5 +49,14 @@ public class UserAcceptsOfferTests extends IntegrationBaseTests {
 		((FinishingTouchListener)solo.getCurrentActivity()).onFinishingTouch();
 		
 		assertTrue(solo.searchButton("支付", true));
+		
+		// Heavily depend on the flow. Bad!
+		solo.goBack();
+		solo.goBack();
+		
+		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y);
+		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y);
+		solo.clickOnText("我要买");
+		assertTrue(solo.searchText("支付"));
 	}
 }
