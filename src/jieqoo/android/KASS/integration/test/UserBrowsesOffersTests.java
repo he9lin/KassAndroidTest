@@ -30,5 +30,6 @@ public class UserBrowsesOffersTests extends IntegrationBaseTests {
 		solo.clickOnScreen(300, 50);
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText(offer.getString("price")));
+		assertTrue(solo.searchText("等待确认"));
 	}
 }

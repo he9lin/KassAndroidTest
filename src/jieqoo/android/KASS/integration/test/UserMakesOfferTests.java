@@ -4,6 +4,7 @@ import static jieqoo.android.KASS.test.Factory.createListing;
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.ProvideActivity;
+import jieqoo.android.KASS.test.Fixtures;
 import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 import org.json.JSONException;
@@ -30,8 +31,7 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		createUser();
 		
 		// click on browse
-		solo.clickOnScreen(250, 730);
-		solo.waitForActivity("Browse");
+		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y);
 		solo.clickOnText(listing.getString("title"));
 		solo.clickOnButton("我想出价");
 		solo.enterText(0, "I am a bartender");

@@ -104,6 +104,18 @@ public class Factory {
 		return createListing(3000);
 	}
 	
+	public static void acceptOffer(String id) {
+		try {
+			REST.postJSON(Configuration.PREFIX + Configuration.HOST + "/v1/offers/" + id + "/accept.json", "");
+		} catch (IOException e) {
+			Log.d(TAG, "Error accepting offer");
+			e.printStackTrace();
+		} catch (JSONException e) {
+			Log.d(TAG, "Error accepting offer");
+			e.printStackTrace();
+		}
+	}
+	
 	public static JSONObject signinUser(String email, String password) {
 		final JSONObject params = new JSONObject();
 		try {

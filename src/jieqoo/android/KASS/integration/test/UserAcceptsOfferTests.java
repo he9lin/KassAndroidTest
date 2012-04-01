@@ -28,7 +28,7 @@ public class UserAcceptsOfferTests extends IntegrationBaseTests {
 		JSONObject user = createUser();
 		JSONObject listing = createListing();
 		signoutUser();
-		createUser();
+		JSONObject offerer = createUser();
 		JSONObject offer = createOffer(listing.getString("id"));
 		signoutUser();
 		
@@ -58,5 +58,12 @@ public class UserAcceptsOfferTests extends IntegrationBaseTests {
 		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y);
 		solo.clickOnText("我要买");
 		assertTrue(solo.searchText("支付"));
+		
+		//
+		signoutUser();
+		signinUser(offerer.getString("email"), offerer.getString("password"));
+		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y);
+		solo.clickOnText("我要卖");
+		assertTrue(solo.searchText("等待付款"));
 	}
 }
