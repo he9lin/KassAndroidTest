@@ -4,6 +4,7 @@ import static jieqoo.android.KASS.test.Factory.createListing;
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.ProvideActivity;
+import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.test.Fixtures;
 import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Instrumentation.ActivityMonitor;
 import android.util.Log;
+import android.view.View;
 
 public class UserMakesOfferTests extends IntegrationBaseTests {
 	
@@ -32,6 +34,8 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		
 		// click on browse
 		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y);
+		View browse = solo.getView(R.id.market_browse);
+		solo.clickOnView(browse);
 		solo.clickOnText(listing.getString("title"));
 		solo.clickOnButton("我想出价");
 		solo.enterText(0, "I am a bartender");

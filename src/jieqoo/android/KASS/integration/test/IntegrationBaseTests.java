@@ -27,5 +27,4 @@ public abstract class IntegrationBaseTests extends ActivityInstrumentationTestCa
 			e.printStackTrace();
 		}
 	}
-
 }

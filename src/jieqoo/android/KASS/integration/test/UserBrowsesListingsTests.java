@@ -5,12 +5,15 @@ import static jieqoo.android.KASS.test.Factory.createUser;
 
 import java.util.Random;
 
+import jieqoo.android.KASS.R;
+import jieqoo.android.KASS.test.Fixtures;
 import jieqoo.android.KASS.util.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import android.view.View;
 
 public class UserBrowsesListingsTests extends IntegrationBaseTests {
 
@@ -22,6 +25,12 @@ public class UserBrowsesListingsTests extends IntegrationBaseTests {
 		this("UserBrowsesListingsTests");
 	}
 	
+	private void goToBrowseListings() {
+		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y); // browse
+		View browse = solo.getView(R.id.market_browse);
+		solo.clickOnView(browse);
+	}
+	
 	public final void testBrowseListings() throws JSONException {
 		Random generator = new Random();
 		createUser();
@@ -30,7 +39,7 @@ public class UserBrowsesListingsTests extends IntegrationBaseTests {
 		
 		JSONObject listing = createListing(randPrice);
 		
-		solo.clickOnScreen(250, 730); // browse
+		goToBrowseListings();
 		
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText(randPrice + "元"));

@@ -2,6 +2,7 @@ package jieqoo.android.KASS.integration.test;
 
 import static jieqoo.android.KASS.test.Factory.*;
 import jieqoo.android.KASS.OfferActivity;
+import jieqoo.android.KASS.test.Fixtures;
 import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 import org.json.JSONException;
@@ -29,8 +30,8 @@ public class UserPaysOfferTests extends IntegrationBaseTests {
 		signinUser(user.getString("email"), user.getString("password"));
 		acceptOffer(offer.getString("id"));
 		
-		solo.clickOnScreen(250, 730); // browse
-		solo.clickOnScreen(80, 730); // my activity
+		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y); // browse
+		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y); // my activity
 		
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText("支付"));
