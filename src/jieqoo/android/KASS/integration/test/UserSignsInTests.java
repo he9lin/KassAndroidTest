@@ -25,13 +25,29 @@ public class UserSignsInTests extends IntegrationBaseTests {
 		String email = userJSON.getString("email");
 		String password = userJSON.getString("password");
 
-		solo.clickOnScreen(Fixtures.ACCOUNT_X, Fixtures.MENU_Y);
+		clickOnSigninMainTab();
 		solo.waitForActivity("SignIn");
 		solo.enterText(0, email);
 		solo.enterText(1, password);
-		solo.clickOnButton("登录");
+		
+		clickOnSigninButton();
 		solo.waitForText("我要买");
 		
 		assertTrue(Account.getInstance().isAuthenticated());
+	}
+	
+	public final void testSigninWithInvalidPassword() throws JSONException {
+		JSONObject userJSON = createUser();
+		signoutUser();
+
+		String email = userJSON.getString("email");
+
+		clickOnSigninMainTab();
+		solo.waitForActivity("SignIn");
+		solo.enterText(0, email);
+		solo.enterText(1, "invalid");
+		clickOnSigninButton();
+		
+		assertTrue(solo.searchText("邮箱或者密码不对"));
 	}
 }

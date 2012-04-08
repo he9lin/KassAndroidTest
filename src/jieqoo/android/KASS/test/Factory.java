@@ -72,6 +72,33 @@ public class Factory {
 		return offerJSON;
 	}
 	
+	public static JSONObject createListing(String title) {
+		final JSONObject params = new JSONObject();
+		JSONObject listingJSON = new JSONObject();
+		
+		try {
+			params.put("title", title + System.currentTimeMillis());
+			params.put("latlng", new JSONArray("[" + Fixtures.LAT_LNG.HZ + "]"));
+			params.put("price", 3000);
+			params.put("time", "2d");
+		} catch (JSONException e) {
+			Log.d(TAG, "Error building JSONObject");
+		}
+		
+		String url = new Listing().getUrl();
+		try {
+			listingJSON = (JSONObject)REST.postJSON(url, params.toString()).getResponseBody();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return listingJSON;
+	}
+	
 	public static JSONObject createListing(double price) {
 		final JSONObject params = new JSONObject();
 		JSONObject listingJSON = new JSONObject();

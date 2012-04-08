@@ -30,8 +30,8 @@ public class UserPaysOfferTests extends IntegrationBaseTests {
 		signinUser(user.getString("email"), user.getString("password"));
 		acceptOffer(offer.getString("id"));
 		
-		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y); // browse
-		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y); // my activity
+		clickOnBrowseMainTab();
+		clickOnMyActivityMainTab();
 		
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText("支付"));

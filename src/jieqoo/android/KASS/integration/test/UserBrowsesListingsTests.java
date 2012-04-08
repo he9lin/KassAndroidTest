@@ -26,7 +26,7 @@ public class UserBrowsesListingsTests extends IntegrationBaseTests {
 	}
 	
 	private void goToBrowseListings() {
-		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y); // browse
+		clickOnBrowseMainTab();
 		View browse = solo.getView(R.id.market_browse);
 		solo.clickOnView(browse);
 	}

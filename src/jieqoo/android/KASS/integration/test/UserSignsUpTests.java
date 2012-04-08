@@ -3,6 +3,7 @@
  */
 package jieqoo.android.KASS.integration.test;
 
+import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.models.Account;
 import jieqoo.android.KASS.test.Fixtures;
 import static jieqoo.android.KASS.test.Factory.*;
@@ -21,18 +22,50 @@ public class UserSignsUpTests extends IntegrationBaseTests {
 		super(name);
 	}
 	
-	public final void testSignup() {
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 		signoutUser();
-		
-		solo.clickOnScreen(Fixtures.ACCOUNT_X, Fixtures.MENU_Y);
+		clickOnSigninMainTab();
 		solo.waitForActivity("SignIn");
-		solo.clickOnButton("注册");
+		clickOnSignupButton();
+	}
+	
+	public final void testSignup() {
 		solo.enterText(0, "kass" + System.currentTimeMillis());
 		solo.enterText(1, "secret");
 		solo.enterText(2, "kass" + System.currentTimeMillis() + "@example.com");
 		solo.enterText(3, "12345678910");
-		solo.clickOnButton("注册");
+		clickOnSignupButton();
 		solo.waitForActivity("Main");
 		assertTrue(Account.getInstance().isAuthenticated());
+	}
+	
+	public final void testSignupWithInvalidPassword() {
+		solo.enterText(0, "kass" + System.currentTimeMillis());
+		solo.enterText(1, "s"); // invalid
+		solo.enterText(2, "kass" + System.currentTimeMillis() + "@example.com");
+		solo.enterText(3, "12345678910");
+		clickOnSignupButton();
+		assertTrue(solo.searchText("过短"));
+	}
+	
+	public final void testSignupWithInvalidEmail() {
+		solo.enterText(0, "kass" + System.currentTimeMillis());
+		solo.enterText(1, "secret"); 
+		solo.enterText(2, "kass" + System.currentTimeMillis()); // invalid
+		solo.enterText(3, "12345678910");
+		clickOnSignupButton();
+		assertTrue(solo.searchText("无效"));
+	}
+	
+	public final void testSignupWithInvalidPhoneNumber() {
+		solo.enterText(0, "kass" + System.currentTimeMillis());
+		solo.enterText(1, "secret"); 
+		solo.enterText(2, "kass" + System.currentTimeMillis() + "@example.com");
+		solo.enterText(3, "1234567891");
+		clickOnSignupButton();
+		assertTrue(solo.searchText("过短"));
+		assertTrue(solo.searchText("11"));
 	}
 }

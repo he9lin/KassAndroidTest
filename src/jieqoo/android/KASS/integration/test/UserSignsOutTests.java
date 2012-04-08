@@ -2,8 +2,8 @@ package jieqoo.android.KASS.integration.test;
 
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
+import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.models.Account;
-import jieqoo.android.KASS.test.Fixtures;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,21 +24,26 @@ public class UserSignsOutTests extends IntegrationBaseTests {
 
 		String email = userJSON.getString("email");
 		String password = userJSON.getString("password");
+		
+		clickOnSigninMainTab();
 
-		solo.clickOnScreen(Fixtures.ACCOUNT_X, Fixtures.MENU_Y);
 		solo.waitForActivity("SignIn");
 		solo.enterText(0, email);
 		solo.enterText(1, password);
-		solo.clickOnButton("登录");
+		
+		clickOnSigninButton();
+		
 		solo.waitForText("我要买");
 		
 		assertTrue(Account.getInstance().isAuthenticated());
 
-		solo.clickOnScreen(Fixtures.ACCOUNT_X, Fixtures.MENU_Y);
+		clickOnSigninMainTab();
+		
 		solo.waitForActivity("MyProfile");
 		
-		solo.clickOnButton("注销");
-		solo.waitForText("登录");
+		clickOnSignoutButton();
+		
+		solo.waitForView(solo.getView(R.id.signin_btn));
 		
 		assertFalse(Account.getInstance().isAuthenticated());
 	}

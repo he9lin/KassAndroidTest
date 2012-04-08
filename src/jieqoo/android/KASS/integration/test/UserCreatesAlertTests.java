@@ -1,5 +1,6 @@
 package jieqoo.android.KASS.integration.test;
 
+import jieqoo.android.KASS.AlertFormActivity;
 import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.test.Factory;
 import jieqoo.android.KASS.test.Fixtures;
@@ -22,7 +23,8 @@ public class UserCreatesAlertTests extends IntegrationBaseTests {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y);
+		
+		clickOnBrowseMainTab();
 		
 		View alerts = solo.getView(R.id.market_alerts);
 		solo.clickOnView(alerts);
@@ -31,80 +33,95 @@ public class UserCreatesAlertTests extends IntegrationBaseTests {
 		solo.clickOnView(newAlert);	
 		
 		// Views built successfully
-		assertTrue(solo.searchText("添加提醒")); // title
 		assertTrue(solo.searchText("20")); // default 20 km
+	}
+
+	private void assertOnActivityFormActivity() {
+		solo.assertCurrentActivity("AlertFormActivity", AlertFormActivity.class);
 	}
 	
 	public final void testUserEntersQuery() {
-		solo.clickOnText("我要出售");
+		clickIWantToSellLabel();
 		assertTrue(solo.searchText("关注的商品"));
 		solo.enterText(0, "Basketball");
-		solo.clickOnText("确定");
-		assertTrue(solo.searchText("添加提醒"));
+		clickOnDoneButton();
+		assertOnActivityFormActivity();
 		assertTrue(solo.searchText("Basketball"));
 	}
 	
 	public final void testUserCancelsQueryEnter() {
-		solo.clickOnText("我要出售");
+		clickIWantToSellLabel();
 		assertTrue(solo.searchText("关注的商品"));
-		solo.clickOnText("取消");
-		assertTrue(solo.searchText("添加提醒"));
+		clickOnCancelButton();
+		assertOnActivityFormActivity();
 	}
 	
 	public final void testUserEnterMinPrice() {
-		solo.clickOnText("最低价位");
+		clickMinPriceLabel();
 		assertTrue(solo.searchText("提醒价位"));
 		solo.enterText(0, "37");
-		solo.clickOnText("确定");
-		assertTrue(solo.searchText("添加提醒"));
+		clickOnDoneButton();
+		assertOnActivityFormActivity();
 		assertTrue(solo.searchText("37"));
 	}
 	
 	public final void testUserCancelMinPriceEnter() {
-		solo.clickOnText("最低价位");
+		clickMinPriceLabel();
 		assertTrue(solo.searchText("提醒价位"));
-		solo.clickOnText("取消");
-		assertTrue(solo.searchText("添加提醒"));
+		clickOnCancelButton();
+		assertOnActivityFormActivity();
 	}
 	
 	public final void testUserEditRadius() {
-		solo.clickOnText("位置");
+		clickRadiusLabel();
 		assertTrue(solo.searchText("提醒位置"));
 		assertTrue(solo.searchText("20")); // default 20
 		solo.setProgressBar(0, 50);
-		solo.clickOnText("确定");
-		assertTrue(solo.searchText("添加提醒"));
+		clickOnDoneButton();
+		assertOnActivityFormActivity();
 		assertTrue(solo.searchText("50"));
 	}
 	
 	public final void testUserCancelRadiusEdit() {
-		solo.clickOnText("位置");
+		clickRadiusLabel();
 		assertTrue(solo.searchText("提醒位置"));
-		solo.clickOnText("取消");
-		assertTrue(solo.searchText("添加提醒"));
+		clickOnCancelButton();
+		assertOnActivityFormActivity();
+	}
+	
+	private void clickIWantToSellLabel() {
+		solo.clickOnView(solo.getView(R.id.alert_form_query));
+	}
+	
+	private void clickRadiusLabel() {
+		solo.clickOnView(solo.getView(R.id.alert_form_radius));
+	}
+	
+	private void clickMinPriceLabel() {
+		solo.clickOnView(solo.getView(R.id.alert_form_min_price));
 	}
 	
 	public final void testCreateAlert() throws JSONException {
 		JSONObject userJSON = Factory.createUser();
 		Factory.signinUser(userJSON.getString("email"), userJSON.getString("password"));
 		
-		solo.clickOnText("我要出售");
+		clickIWantToSellLabel();
 		assertTrue(solo.searchText("关注的商品"));
 		solo.enterText(0, "Basketball");
-		solo.clickOnText("确定");
+		clickOnDoneButton();
 		
-		solo.clickOnText("位置");
+		clickRadiusLabel();
 		assertTrue(solo.searchText("提醒位置"));
 		assertTrue(solo.searchText("20")); // default 20
 		solo.setProgressBar(0, 50);
-		solo.clickOnText("确定");
+		clickOnDoneButton();
 		
-		solo.clickOnText("最低价位");
+		clickMinPriceLabel();
 		assertTrue(solo.searchText("提醒价位"));
 		solo.enterText(0, "37");
-		solo.clickOnText("确定");
+		clickOnDoneButton();
 		
-		assertTrue(solo.searchText("添加提醒"));
+		assertOnActivityFormActivity();
 		solo.clickOnButton(0); 
 		
 		solo.waitForActivity("AlertsActivity");

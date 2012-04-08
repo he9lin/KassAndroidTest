@@ -1,6 +1,8 @@
 package jieqoo.android.KASS.integration.test;
 
 import static jieqoo.android.KASS.test.Factory.*;
+import jieqoo.android.KASS.R;
+import jieqoo.android.KASS.test.Fixtures;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,14 +18,16 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 	public UserBrowsesWantsTests() {
 		this("UserBrowsesWantsTests");
 	}
+	
+	private void refreshMyActivity() {
+		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y);
+		solo.clickOnView(solo.getView(R.id.main_rbtn_MyActivity));
+	}
 
 	public final void testBrowsesListings() throws JSONException {
 		createUser();
 		JSONObject listing = createListing();
-		
-		solo.clickOnScreen(250, 730); // browse
-		solo.clickOnScreen(80, 730); // my activity
-		
+		refreshMyActivity();
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText("0个出价"));
 	}
@@ -39,8 +43,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		signoutUser();
 		signinUser(user.getString("email"), user.getString("password"));
 		
-		solo.clickOnScreen(250, 730); // browse
-		solo.clickOnScreen(80, 730); // my activity
+		refreshMyActivity();
 		
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText("1个出价"));
@@ -57,8 +60,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		signoutUser();
 		signinUser(user.getString("email"), user.getString("password"));
 		
-		solo.clickOnScreen(250, 730); // browse
-		solo.clickOnScreen(80, 730); // my activity
+		refreshMyActivity();
 		
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText("1个出价"));
