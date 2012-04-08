@@ -6,7 +6,10 @@ import static jieqoo.android.KASS.test.Factory.signoutUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+
 import jieqoo.android.KASS.ListingFormReviewActivity;
+import jieqoo.android.KASS.ListingFormTitleDescActivity;
 import jieqoo.android.KASS.Main;
 import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.SignIn;
@@ -21,6 +24,29 @@ public class UserPostsListingTests extends IntegrationBaseTests {
 	
 	public UserPostsListingTests() {
 		this("UserPostsListingTests");
+	}
+	
+	public final void testUserEditsListing() throws JSONException {
+		JSONObject userJSON = Factory.createUser();
+		Factory.signinUser(userJSON.getString("email"), userJSON.getString("password"));
+		JSONObject listingJSON = Factory.createListing();
+		clickOnBrowseMainTab();
+		clickOnMyActivityMainTab();
+		solo.clickOnText(listingJSON.getString("title"));
+		solo.clickOnView(solo.getView(R.id.want_edit_btn));
+		
+		Activity activity = solo.getCurrentActivity();
+		assertTrue(solo.searchText(activity.getString(R.string.edit)));
+		solo.clickOnText(activity.getString(R.string.edit));
+		solo.assertCurrentActivity("ListingFormTitleDescActivity", ListingFormTitleDescActivity.class);
+	
+		String title = "New Bartender";
+		solo.enterText(0, title);
+		clickOnNextButton();
+		clickOnNextButton();
+		clickOnNextButton();
+		
+		((FinishingTouchListener)solo.getCurrentActivity()).onFinishingTouch();
 	}
 
 	public final void testUserPostsAListing() throws InterruptedException {
