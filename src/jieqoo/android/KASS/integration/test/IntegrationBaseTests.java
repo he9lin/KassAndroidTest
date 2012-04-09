@@ -18,6 +18,7 @@ public abstract class IntegrationBaseTests extends ActivityInstrumentationTestCa
 	protected void setUp() throws Exception {
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
+		clickOnCloseButton(); // close the initial popup
 	}
 
 	protected void tearDown() throws Exception {
@@ -59,6 +60,14 @@ public abstract class IntegrationBaseTests extends ActivityInstrumentationTestCa
 	
 	protected void clickOnSignupButton() {
 		solo.clickOnView(solo.getView(R.id.signup_btn));
+	}
+	
+	protected void clickOnCloseButton() {
+		solo.clickOnView(solo.getView(R.id.close_btn));
+	}
+	
+	protected void clickOnBackButton() {
+		solo.clickOnView(solo.getView(R.id.back_btn));
 	}
 	
 	protected void clickOnSendButton() {

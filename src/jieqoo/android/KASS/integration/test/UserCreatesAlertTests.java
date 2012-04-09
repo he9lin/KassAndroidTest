@@ -1,6 +1,7 @@
 package jieqoo.android.KASS.integration.test;
 
 import jieqoo.android.KASS.AlertFormActivity;
+import jieqoo.android.KASS.AlertsActivity;
 import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.test.Factory;
 import jieqoo.android.KASS.test.Fixtures;
@@ -40,6 +41,18 @@ public class UserCreatesAlertTests extends IntegrationBaseTests {
 		solo.assertCurrentActivity("AlertFormActivity", AlertFormActivity.class);
 	}
 	
+	private void clickIWantToSellLabel() {
+		solo.clickOnView(solo.getView(R.id.alert_form_query));
+	}
+	
+	private void clickRadiusLabel() {
+		solo.clickOnView(solo.getView(R.id.alert_form_radius));
+	}
+	
+	private void clickMinPriceLabel() {
+		solo.clickOnView(solo.getView(R.id.alert_form_min_price));
+	}
+	
 	public final void testUserEntersQuery() {
 		clickIWantToSellLabel();
 		assertTrue(solo.searchText("关注的商品"));
@@ -65,10 +78,24 @@ public class UserCreatesAlertTests extends IntegrationBaseTests {
 		assertTrue(solo.searchText("37"));
 	}
 	
+	public final void testUserEntersEmptyPrice() {
+		clickMinPriceLabel();
+		assertTrue(solo.searchText("提醒价位"));
+		clickOnDoneButton();
+		assertOnActivityFormActivity();
+	}
+	
 	public final void testUserCancelMinPriceEnter() {
 		clickMinPriceLabel();
 		assertTrue(solo.searchText("提醒价位"));
 		clickOnCancelButton();
+		assertOnActivityFormActivity();
+	}
+	
+	public final void testUserEntersEmptyQuery() {
+		clickIWantToSellLabel();
+		assertTrue(solo.searchText("关注的商品"));
+		clickOnDoneButton();
 		assertOnActivityFormActivity();
 	}
 	
@@ -89,16 +116,30 @@ public class UserCreatesAlertTests extends IntegrationBaseTests {
 		assertOnActivityFormActivity();
 	}
 	
-	private void clickIWantToSellLabel() {
-		solo.clickOnView(solo.getView(R.id.alert_form_query));
-	}
-	
-	private void clickRadiusLabel() {
-		solo.clickOnView(solo.getView(R.id.alert_form_radius));
-	}
-	
-	private void clickMinPriceLabel() {
-		solo.clickOnView(solo.getView(R.id.alert_form_min_price));
+	public final void testUserCancelsCreateAlert() throws JSONException {
+		JSONObject userJSON = Factory.createUser();
+		Factory.signinUser(userJSON.getString("email"), userJSON.getString("password"));
+		
+		clickIWantToSellLabel();
+		assertTrue(solo.searchText("关注的商品"));
+		solo.enterText(0, "Basketball");
+		clickOnDoneButton();
+		
+		clickRadiusLabel();
+		assertTrue(solo.searchText("提醒位置"));
+		assertTrue(solo.searchText("20")); // default 20
+		solo.setProgressBar(0, 50);
+		clickOnDoneButton();
+		
+		clickMinPriceLabel();
+		assertTrue(solo.searchText("提醒价位"));
+		solo.enterText(0, "37");
+		clickOnDoneButton();
+		
+		assertOnActivityFormActivity();
+		clickOnCancelButton();
+		
+		solo.assertCurrentActivity("Back to Alerts list", AlertsActivity.class);
 	}
 	
 	public final void testCreateAlert() throws JSONException {
@@ -122,7 +163,7 @@ public class UserCreatesAlertTests extends IntegrationBaseTests {
 		clickOnDoneButton();
 		
 		assertOnActivityFormActivity();
-		solo.clickOnButton(0); 
+		solo.clickOnButton(1); 
 		
 		solo.waitForActivity("AlertsActivity");
 		assertTrue(solo.searchText("Basketball"));
