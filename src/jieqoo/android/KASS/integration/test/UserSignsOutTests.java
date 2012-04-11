@@ -3,6 +3,7 @@ package jieqoo.android.KASS.integration.test;
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.R;
+import jieqoo.android.KASS.SettingsActivity;
 import jieqoo.android.KASS.SiginByWeiboActivity;
 import jieqoo.android.KASS.models.Account;
 
@@ -36,11 +37,9 @@ public class UserSignsOutTests extends IntegrationBaseTests {
 		
 		clickOnSigninButton();
 		
-		solo.waitForText("我要买");
-		
+		solo.assertCurrentActivity("Settings activity", SettingsActivity.class);
 		assertTrue(Account.getInstance().isAuthenticated());
 
-		clickOnProfileMainTab();
 		clickOnSignoutButton();
 		
 		solo.assertCurrentActivity("Back to sign in", SiginByWeiboActivity.class);
