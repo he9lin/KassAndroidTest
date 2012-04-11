@@ -4,21 +4,15 @@ import static jieqoo.android.KASS.test.Factory.createListing;
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.ListingActivity;
-import jieqoo.android.KASS.ListingFormReviewActivity;
 import jieqoo.android.KASS.ProvideActivity;
 import jieqoo.android.KASS.R;
-import jieqoo.android.KASS.SignIn;
-import jieqoo.android.KASS.test.Fixtures;
+import jieqoo.android.KASS.SiginByWeiboActivity;
 import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.Instrumentation.ActivityMonitor;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 public class UserMakesOfferTests extends IntegrationBaseTests {
 	
@@ -42,11 +36,12 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		solo.clickOnText(listing.getString("title"));
 		solo.clickOnButton("我想出价");
 		
-		solo.assertCurrentActivity("SignIn", SignIn.class);
-		solo.waitForActivity("SignIn");
+		solo.assertCurrentActivity("SiginByWeiboActivity", SiginByWeiboActivity.class);
+		clickOnSigninButton();
 		
 		JSONObject userJSON = createUser();
 		
+		solo.clearEditText(0); solo.clearEditText(1);
 		solo.enterText(0, userJSON.getString("email"));
 		solo.enterText(1, userJSON.getString("password"));
 		

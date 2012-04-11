@@ -26,12 +26,15 @@ public class UserSignsUpTests extends IntegrationBaseTests {
 	protected void setUp() throws Exception {
 		super.setUp();
 		signoutUser();
-		clickOnSigninMainTab();
-		solo.waitForActivity("SignIn");
+		clickOnProfileMainTab();
 		clickOnSignupButton();
 	}
 	
 	public final void testSignup() {
+		solo.clearEditText(0);
+		solo.clearEditText(1);
+		solo.clearEditText(2);
+		solo.clearEditText(3);
 		solo.enterText(0, "kass" + System.currentTimeMillis());
 		solo.enterText(1, "secret");
 		solo.enterText(2, "kass" + System.currentTimeMillis() + "@example.com");

@@ -2,19 +2,18 @@ package jieqoo.android.KASS.integration.test;
 
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
+import jieqoo.android.KASS.ListingFormReviewActivity;
+import jieqoo.android.KASS.ListingFormTitleDescActivity;
+import jieqoo.android.KASS.R;
+import jieqoo.android.KASS.SiginByWeiboActivity;
+import jieqoo.android.KASS.SignIn;
+import jieqoo.android.KASS.test.Factory;
+import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-
-import jieqoo.android.KASS.ListingFormReviewActivity;
-import jieqoo.android.KASS.ListingFormTitleDescActivity;
-import jieqoo.android.KASS.Main;
-import jieqoo.android.KASS.R;
-import jieqoo.android.KASS.SignIn;
-import jieqoo.android.KASS.test.Factory;
-import jieqoo.android.KASS.widgets.SlideButton.FinishingTouchListener;
 
 public class UserPostsListingTests extends IntegrationBaseTests {
 
@@ -41,11 +40,18 @@ public class UserPostsListingTests extends IntegrationBaseTests {
 		solo.assertCurrentActivity("ListingFormTitleDescActivity", ListingFormTitleDescActivity.class);
 	
 		String title = "New Bartender";
+		solo.clearEditText(0);
 		solo.enterText(0, title);
-		clickOnNextButton();
-		clickOnNextButton();
+		clickOnNextButton(); 
+		
+		solo.clearEditText(0);
+		solo.enterText(0, "50");
 		clickOnNextButton();
 		
+		solo.clickInList(0);
+		clickOnNextButton();
+		
+		solo.waitForActivity("ListingFormReviewActivity");
 		((FinishingTouchListener)solo.getCurrentActivity()).onFinishingTouch();
 	}
 
@@ -95,8 +101,9 @@ public class UserPostsListingTests extends IntegrationBaseTests {
 		solo.assertCurrentActivity("ListingFormReviewActivity", ListingFormReviewActivity.class);
 		((FinishingTouchListener)solo.getCurrentActivity()).onFinishingTouch();
 		
-		solo.assertCurrentActivity("SignIn", SignIn.class);
-		solo.waitForActivity("SignIn");
+		solo.assertCurrentActivity("SiginByWeiboActivity", SiginByWeiboActivity.class);
+		clickOnSigninButton();
+		solo.clearEditText(0); solo.clearEditText(1);
 		solo.enterText(0, email);
 		solo.enterText(1, password);
 		

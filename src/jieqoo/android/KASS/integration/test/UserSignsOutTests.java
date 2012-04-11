@@ -3,6 +3,7 @@ package jieqoo.android.KASS.integration.test;
 import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.R;
+import jieqoo.android.KASS.SiginByWeiboActivity;
 import jieqoo.android.KASS.models.Account;
 
 import org.json.JSONException;
@@ -24,10 +25,12 @@ public class UserSignsOutTests extends IntegrationBaseTests {
 
 		String email = userJSON.getString("email");
 		String password = userJSON.getString("password");
-		
-		clickOnSigninMainTab();
 
-		solo.waitForActivity("SignIn");
+		clickOnProfileMainTab();
+		clickOnSigninButton();
+		
+		solo.clearEditText(0);
+		solo.clearEditText(1);
 		solo.enterText(0, email);
 		solo.enterText(1, password);
 		
@@ -37,13 +40,10 @@ public class UserSignsOutTests extends IntegrationBaseTests {
 		
 		assertTrue(Account.getInstance().isAuthenticated());
 
-		clickOnSigninMainTab();
-		
-		solo.waitForActivity("MyProfile");
-		
+		clickOnProfileMainTab();
 		clickOnSignoutButton();
 		
-		solo.waitForView(solo.getView(R.id.signin_btn));
+		solo.assertCurrentActivity("Back to sign in", SiginByWeiboActivity.class);
 		
 		assertFalse(Account.getInstance().isAuthenticated());
 	}

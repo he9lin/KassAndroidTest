@@ -1,6 +1,7 @@
 package jieqoo.android.KASS.integration.test;
 
 import jieqoo.android.KASS.models.Account;
+import jieqoo.android.KASS.test.Factory;
 import jieqoo.android.KASS.test.Fixtures;
 
 import org.json.JSONException;
@@ -25,8 +26,11 @@ public class UserSignsInTests extends IntegrationBaseTests {
 		String email = userJSON.getString("email");
 		String password = userJSON.getString("password");
 
-		clickOnSigninMainTab();
-		solo.waitForActivity("SignIn");
+		clickOnProfileMainTab();
+		clickOnSigninButton();
+		
+		solo.clearEditText(0);
+		solo.clearEditText(1);
 		solo.enterText(0, email);
 		solo.enterText(1, password);
 		
@@ -42,8 +46,11 @@ public class UserSignsInTests extends IntegrationBaseTests {
 
 		String email = userJSON.getString("email");
 
-		clickOnSigninMainTab();
-		solo.waitForActivity("SignIn");
+		clickOnProfileMainTab();
+		clickOnSigninButton();
+
+		solo.clearEditText(0);
+		solo.clearEditText(1);
 		solo.enterText(0, email);
 		solo.enterText(1, "invalid");
 		clickOnSigninButton();
