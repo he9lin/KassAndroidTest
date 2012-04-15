@@ -32,8 +32,7 @@ public class UserSendsMessageOnOfferTests extends IntegrationBaseTests {
 		
 		clickOnMyActivityMainTab();
 		
-		// Click on sellings
-		solo.clickOnScreen(300, 50);
+		solo.clickOnText("我要卖");
 		solo.clickOnText(listing.getString("title"));
 		assertTrue(solo.searchText("37.37"));
 		solo.assertCurrentActivity("Should be on offer page", ProvideActivity.class);
@@ -58,10 +57,9 @@ public class UserSendsMessageOnOfferTests extends IntegrationBaseTests {
 		createUser();
 		createOffer(listing.getString("id"));
 		
-		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y); // my activity
+		clickOnMyActivityMainTab();
 		
-		// Click on sellings
-		solo.clickOnScreen(300, 50);
+		solo.clickOnText("我要卖");
 		solo.clickOnText(listing.getString("title"));
 		assertTrue(solo.searchText("37.37"));
 		solo.assertCurrentActivity("Should be on offer page", ProvideActivity.class);

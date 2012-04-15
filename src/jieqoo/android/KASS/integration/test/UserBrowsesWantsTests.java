@@ -20,8 +20,8 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 	}
 	
 	private void refreshMyActivity() {
-		solo.clickOnScreen(Fixtures.BROWSE_X, Fixtures.MENU_Y);
-		solo.clickOnView(solo.getView(R.id.main_rbtn_MyActivity));
+		clickOnBrowseMainTab();
+		clickOnMyActivityMainTab();
 	}
 
 	public final void testBrowsesListings() throws JSONException {

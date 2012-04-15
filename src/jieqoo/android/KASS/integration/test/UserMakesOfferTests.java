@@ -46,6 +46,7 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		solo.enterText(1, userJSON.getString("password"));
 		
 		clickOnSigninButton();
+		solo.waitForActivity("ListingActivity");
 		solo.assertCurrentActivity("ListingActivity", ListingActivity.class);
 	}
 	

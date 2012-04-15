@@ -3,13 +3,15 @@
  */
 package jieqoo.android.KASS.models.test;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import jieqoo.android.KASS.Main;
 import jieqoo.android.KASS.models.Account;
+import jieqoo.android.KASS.models.IntentMeta;
 import jieqoo.android.KASS.models.RESTListener;
 import jieqoo.android.KASS.test.Factory;
 import junit.framework.TestCase;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author linhe
@@ -113,5 +115,14 @@ public class AccountTests extends TestCase {
 		});
 		assertFalse(Factory.acquireAuth());
 		assertTrue(called);
+	}
+	
+	public final void testRegisterAndConsumeAfterAuthenticationIntention() {
+		IntentMeta im = new IntentMeta(Main.class);
+		account.registerAfterAuthenticationIntention(im);
+		IntentMeta im2 = account.consumeAfterAuthenticationIntention();
+		assertNotNull(im2);
+		assertEquals(Main.class, im2.getActivityClass());
+		assertNull(account.consumeAfterAuthenticationIntention());
 	}
 }

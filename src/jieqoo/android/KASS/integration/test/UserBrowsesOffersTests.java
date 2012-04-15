@@ -25,9 +25,8 @@ public class UserBrowsesOffersTests extends IntegrationBaseTests {
 		signoutUser();
 		createUser();
 		JSONObject offer = createOffer(listing.getString("id"));
-		solo.clickOnScreen(Fixtures.ACTIVITY_X, Fixtures.MENU_Y);
-		// Click on sellings
-		solo.clickOnScreen(300, 50);
+		clickOnMyActivityMainTab();
+		solo.clickOnText("我要卖");
 		assertTrue(solo.searchText(listing.getString("title")));
 		assertTrue(solo.searchText(offer.getString("price")));
 		assertTrue(solo.searchText("等待确认"));
