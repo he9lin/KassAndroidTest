@@ -4,6 +4,7 @@ import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.ListingFormReviewActivity;
 import jieqoo.android.KASS.ListingFormTitleDescActivity;
+import jieqoo.android.KASS.MyActivityWantActivity;
 import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.SiginByWeiboActivity;
 import jieqoo.android.KASS.SignIn;
@@ -23,6 +24,22 @@ public class UserPostsListingTests extends IntegrationBaseTests {
 	
 	public UserPostsListingTests() {
 		this("UserPostsListingTests");
+	}
+	
+	public final void testUserDeleteListing() throws JSONException {
+		JSONObject userJSON = Factory.createUser();
+		Factory.signinUser(userJSON.getString("email"), userJSON.getString("password"));
+		JSONObject listingJSON = Factory.createListing();
+		clickOnBrowseMainTab();
+		clickOnMyActivityMainTab();
+		solo.clickOnText(listingJSON.getString("title"));
+		solo.clickOnView(solo.getView(R.id.want_edit_btn));
+		
+		Activity activity = solo.getCurrentActivity();
+		assertTrue(solo.searchText(activity.getString(R.string.delete)));
+		solo.clickOnText(activity.getString(R.string.delete));
+		solo.assertCurrentActivity("Back to wants", MyActivityWantActivity.class);
+		assertFalse(solo.searchText(listingJSON.getString("title")));
 	}
 	
 	public final void testUserEditsListing() throws JSONException {
