@@ -13,11 +13,15 @@ import junit.framework.TestCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.net.ParseException;
+import android.util.Log;
+
 /**
  * @author linhe
  * 
  */
 public class AccountTests extends TestCase {
+	private static final String TAG = "AccountTests";
 	private Account account;
 	private boolean called;
 
@@ -124,5 +128,11 @@ public class AccountTests extends TestCase {
 		assertNotNull(im2);
 		assertEquals(Main.class, im2.getActivityClass());
 		assertNull(account.consumeAfterAuthenticationIntention());
+	}
+	
+	public final void testShowVerifications() throws JSONException, ParseException {
+		String raw = "{\"id\":\"4f8cdf4acf60210172000003\",\"name\":\"user1334632264078\",\"email\":\"user1334632264079@example.com\",\"phone_number\":\"12345678901\",\"default_city_id\":null,\"unread_messages_count\":0,\"timg_url\":\"http://jieqoo.com/assets/headbg.gif\",\"verification\":{\"sources\":[{\"type\":\"email\",\"type_name\":\"\u90ae\u7bb1\",\"verified\":false},{\"type\":\"tsina\",\"type_name\":\"\u65b0\u6d6a\u5fae\u535a\",\"verified\":false},{\"type\":\"phone\",\"type_name\":\"\u7535\u8bdd\u53f7\u7801\",\"verified\":false,\"phone\":\"12345678901\"}],\"member_since\":\"2012-04-17T11:04:07+0800\"}}";
+		account.set(new JSONObject(raw));
+		Log.d(TAG, account.getVerifications().toString());
 	}
 }

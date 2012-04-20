@@ -30,5 +30,4 @@ public class ListingsTests extends TestCase {
 		Listings listing = new Listings(json);
 		assertEquals(listing.length(), 2);
 	}
-
 }
