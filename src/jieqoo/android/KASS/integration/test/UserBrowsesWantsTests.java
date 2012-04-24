@@ -24,7 +24,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		clickOnMyActivityMainTab();
 	}
 
-	public final void testBrowsesListings() throws JSONException {
+	public final void testBrowsesWantsWithNoOffers() throws JSONException {
 		createUser();
 		JSONObject listing = createListing();
 		refreshMyActivity();
@@ -32,7 +32,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		assertTrue(solo.searchText("0个出价"));
 	}
 
-	public final void testBrowsesListingsWithOffers() throws JSONException {
+	public final void testBrowsesWantsWithOffers() throws JSONException {
 		JSONObject user = createUser();
 		JSONObject listing = createListing();
 		
@@ -49,7 +49,7 @@ public class UserBrowsesWantsTests extends IntegrationBaseTests {
 		assertTrue(solo.searchText("1个出价"));
 	}
 	
-	public final void testBrowsesSingleListing() throws JSONException {
+	public final void testBrowsesAWantWithOffer() throws JSONException {
 		JSONObject user = createUser();
 		JSONObject listing = createListing();
 		
