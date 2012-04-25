@@ -27,6 +27,7 @@ public class UserSignsUpTests extends IntegrationBaseTests {
 		super.setUp();
 		signoutUser();
 		clickOnProfileMainTab();
+		clickOnSigninButton();
 		clickOnSignupButton();
 	}
 	

@@ -4,6 +4,7 @@ import static jieqoo.android.KASS.test.Factory.createUser;
 import static jieqoo.android.KASS.test.Factory.signoutUser;
 import jieqoo.android.KASS.ListingFormReviewActivity;
 import jieqoo.android.KASS.ListingFormTitleDescActivity;
+import jieqoo.android.KASS.Main;
 import jieqoo.android.KASS.MyActivityWantActivity;
 import jieqoo.android.KASS.R;
 import jieqoo.android.KASS.SiginByWeiboActivity;
@@ -38,7 +39,7 @@ public class UserPostsListingTests extends IntegrationBaseTests {
 		Activity activity = solo.getCurrentActivity();
 		assertTrue(solo.searchText(activity.getString(R.string.delete)));
 		solo.clickOnText(activity.getString(R.string.delete));
-		solo.assertCurrentActivity("Back to wants", MyActivityWantActivity.class);
+		solo.assertCurrentActivity("Back to wants", Main.class);
 		assertFalse(solo.searchText(listingJSON.getString("title")));
 	}
 	
@@ -96,7 +97,7 @@ public class UserPostsListingTests extends IntegrationBaseTests {
 		
 		// TODO:
 	}
-
+	
 	public final void testUserPostsAListingWithoutLoginFirst() throws InterruptedException, JSONException {
 		JSONObject userJSON = createUser();
 		signoutUser();

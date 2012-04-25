@@ -34,14 +34,12 @@ public class UserPaysOfferTests extends IntegrationBaseTests {
 		clickOnMyActivityMainTab();
 		
 		assertTrue(solo.searchText(listing.getString("title")));
-		assertTrue(solo.searchText("支付"));
 		
 		solo.clickOnText(listing.getString("title"));
 		
 		solo.assertCurrentActivity("OfferActivity", OfferActivity.class);
 
 		// Pay!
-		assertTrue(solo.searchButton("支付", true));
 		((FinishingTouchListener)solo.getCurrentActivity()).onFinishingTouch();
 		
 		assertTrue(solo.searchText("交易已支付", true));

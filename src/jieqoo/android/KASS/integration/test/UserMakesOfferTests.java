@@ -32,7 +32,10 @@ public class UserMakesOfferTests extends IntegrationBaseTests {
 		// click on browse
 		clickOnBrowseMainTab();
 		View browse = solo.getView(R.id.market_browse);
-		solo.clickOnView(browse);
+		
+		// May be already in browse activity
+		if (browse != null) solo.clickOnView(browse);
+		
 		solo.clickOnText(listing.getString("title"));
 		solo.clickOnButton("我想出价");
 		
